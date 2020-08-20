@@ -1,5 +1,6 @@
 import dash_core_components as dcc
 import dash_html_components as html
+from dash.dependencies import Input, Output, State
 import plotly.express as px
 import pandas as pd
 
@@ -124,3 +125,20 @@ layout = html.Div([
         ], className='row justify-content-start')
     ], className="container justify-content-center")
 ])
+
+
+@ app.callback(
+    [
+        Output('keywordBtn01', 'children'),
+        Output('keywordBtn02', 'children'),
+        Output('keywordBtn03', 'children'),
+        Output('keywordBtn04', 'children'),
+        Output('keywordBtn05', 'children'),
+    ],
+    [Input('deptDropdown', 'value')],
+)
+def update_keywords(value):
+    keywords = []
+    if not value:
+        keywords = ['keyword1', 'keyword2', 'keyword3', 'keyword4', 'keyword5']
+    return keywords

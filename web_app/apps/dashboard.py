@@ -149,30 +149,31 @@ layout = html.Div([
     [Input('btnSubmitComplaint', 'n_clicks')],
     [State('complaintText', 'value')],
 )
-def update_nutrients_graph(n_clicks, value):
+def update_department(n_clicks, value):
     print("Button Clicked")
     # print(value)
-    print(keyword_extraction.preprocess(value))
+    # print(keyword_extraction.preprocess(value))
     return "D",
 
 
 @ app.callback(
-    [Output('keywordsDiv', 'children')],
+    [
+        Output('keywordsDiv', 'children'),
+        Output('complaintText', 'value'),
+    ],
     [Input('btnSubmitComplaint', 'n_clicks')],
     [State('complaintText', 'value')],
 )
 def update_keywords(n_clicks, value):
-    keywords = []
+    keywords = ['keywords']
     children = []
-
-    if not value:
-        keywords.append("keywords")
-    else:
+    if value:
+        print("reached here")
         keywords = keyword_extraction.preprocess(value)
 
     for keyword in keywords:
         children.append(html.H4(keyword.upper(), className='keywordText'))
-    return [html.Div(children=children)]
+    return [html.Div(children=children), ""]
 
 
 # @ app.callback(
